@@ -131,6 +131,11 @@ public class FirstFragment extends Fragment {
 
     }
 
+    private void setUrl(String num, String set) {
+        String secondUrl = "https://api.scryfall.com/cards/" + set + "/" + num + "/" + locale;
+        getImageRu(secondUrl);
+    }
+
     private void setImage(String img,String type, String oracle) {
         final TextView typelineText = binding.typeLine;
         final TextView oracleText = binding.oracleText;
@@ -179,8 +184,8 @@ public class FirstFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedText.setText(autoSuggestAdapter.getObject(position) + " / " + locale);
-      //          cardname = autoSuggestAdapter.getObject(position);
-      //          getCard(firstUrl + cardname);
+                cardname = autoSuggestAdapter.getObject(position);
+                getCard(firstUrl + cardname);
       //          closeKeyboard();
             }
         });
