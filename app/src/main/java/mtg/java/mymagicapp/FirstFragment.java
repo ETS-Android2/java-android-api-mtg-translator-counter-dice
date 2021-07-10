@@ -1,6 +1,7 @@
 package mtg.java.mymagicapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -48,18 +51,18 @@ public class FirstFragment extends Fragment {
     private static String ImageURL;
     private static String DoubleImageURL;
     private static String cardname;
-    private static String locale = "ru";
+    public static String locale = "ru";
     private static String oracletext;
     private static String typeline;
     static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
-    RequestQueue mRequestQueue;
+    static RequestQueue mRequestQueue;
     private AppBarConfiguration appBarConfiguration;
 
-    private FragmentFirstBinding binding;
+    private static FragmentFirstBinding binding;
 
-    private void getCard(String url) {
+    public static void getCard(String url) {
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                url, null, new Response.Listener<JSONObject>() {
+                url + cardname, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -86,7 +89,7 @@ public class FirstFragment extends Fragment {
         mRequestQueue.add(request);
     }
 
-    private void getImageRu(String url) {
+    private static void getImageRu(String url) {
         final TextView selectedText = binding.textviewFirst;
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, //GET - API-запрос для получение данных
@@ -131,12 +134,12 @@ public class FirstFragment extends Fragment {
 
     }
 
-    private void setUrl(String num, String set) {
+    private static void setUrl(String num, String set) {
         String secondUrl = "https://api.scryfall.com/cards/" + set + "/" + num + "/" + locale;
         getImageRu(secondUrl);
     }
 
-    private void setImage(String img,String type, String oracle) {
+    private static void setImage(String img, String type, String oracle) {
         final TextView typelineText = binding.typeLine;
         final TextView oracleText = binding.oracleText;
         final ImageView imageView = binding.imageView;
@@ -145,19 +148,6 @@ public class FirstFragment extends Fragment {
         typelineText.setText(type);
         oracleText.setText(oracle);
     }
-
-//    private void closeKeyboard() {
-//        View view = this.getCurrentFocus();
-//        if (view != null) {
-//            InputMethodManager manager
-//                    = (InputMethodManager)
-//                    getSystemService(
-//                            Context.INPUT_METHOD_SERVICE);
-//            manager
-//                    .hideSoftInputFromWindow(
-//                            view.getWindowToken(), 0);
-//        }
-//    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -186,9 +176,10 @@ public class FirstFragment extends Fragment {
                 selectedText.setText(autoSuggestAdapter.getObject(position) + " / " + locale);
                 cardname = autoSuggestAdapter.getObject(position);
                 getCard(firstUrl + cardname);
-      //          closeKeyboard();
             }
         });
+
+
 
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -242,6 +233,8 @@ public class FirstFragment extends Fragment {
         });
 
     }
+
+
 
     @Override
     public void onDestroyView() {
