@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,11 +25,18 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+            Bundle savedInstanceState) {
+
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("text", mData);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -41,6 +49,43 @@ public class SecondFragment extends Fragment {
         final Button countPlusTwo = binding.plusTwo;
         final Button countMinusTwo = binding.minusTwo;
         final TextView counterNumTwo = binding.counterTwo;
+
+        final Button backgroundOne = binding.backResetOne;
+        final Button backgroundTwo = binding.backResetTwo;
+        final LinearLayout imageOne = binding.opponentOne;
+        final LinearLayout imageTwo = binding.opponentTwo;
+
+        backgroundOne.setOnClickListener(new View.OnClickListener() {
+            int i=0;
+            @Override
+            public void onClick(View view) {
+                switch (i) {
+                    case 0:imageOne.setBackgroundResource(R.drawable.dark);i++;break;
+                    case 1:imageOne.setBackgroundResource(R.drawable.fire);i++;break;
+                    case 2:imageOne.setBackgroundResource(R.drawable.forest);i++;break;
+                    case 3:imageOne.setBackgroundResource(R.drawable.sky);i++;break;
+                    case 4:imageOne.setBackgroundResource(R.drawable.water);i++;break;
+                } if (i>=5) {
+                    i = 0;
+                }
+            }
+        });
+
+        backgroundTwo.setOnClickListener(new View.OnClickListener() {
+            int i=0;
+            @Override
+            public void onClick(View view) {
+                switch (i) {
+                    case 0:imageTwo.setBackgroundResource(R.drawable.dark);i++;break;
+                    case 1:imageTwo.setBackgroundResource(R.drawable.fire);i++;break;
+                    case 2:imageTwo.setBackgroundResource(R.drawable.forest);i++;break;
+                    case 3:imageTwo.setBackgroundResource(R.drawable.sky);i++;break;
+                    case 4:imageTwo.setBackgroundResource(R.drawable.water);i++;break;
+                } if (i>=5) {
+                    i = 0;
+                }
+            }
+        });
 
         countPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,5 +125,13 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putInt("counterOneSave", oneCounter);
+//        outState.putInt("counterTwoSave", twoCounter);
+//    }
 
 }

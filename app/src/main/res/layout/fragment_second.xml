@@ -18,9 +18,10 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/opponent_one"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="5"
                 android:background="#DF5454">
 
                 <Button
@@ -29,8 +30,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:icon="@drawable/ic_baseline_rotate_right_24"
                     android:rotation="-180"
+                    app:icon="@drawable/ic_baseline_rotate_right_24"
                     app:iconGravity="textTop"
                     app:iconTint="@color/black" />
 
@@ -52,8 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:icon="@drawable/ic_baseline_rotate_left_24"
                     android:rotation="-180"
+                    app:icon="@drawable/ic_baseline_rotate_left_24"
                     app:iconGravity="textTop"
                     app:iconTint="@color/black" />
 
@@ -63,13 +64,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/back_reset_one"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:rotation="-180"
+                    app:icon="@drawable/ic_baseline_image_24"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_weight="1"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black"
+                    app:icon="@drawable/ic_baseline_autorenew_24"
+                    />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_weight="1"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black"
+                    app:icon="@drawable/ic_baseline_autorenew_24" />
+
+                <Button
+                    android:id="@+id/back_reset_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_baseline_image_24"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black"
+                    />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/opponent_two"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="55dp"
-                android:layout_weight="3"
+                android:layout_weight="5"
                 android:background="#302DA1">
 
 
