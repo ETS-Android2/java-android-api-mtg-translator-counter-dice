@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,7 @@ import mtg.java.mymagicapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -38,21 +40,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-   //     setSupportActionBar(binding.toolbar);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_first, R.id.navigation_second)
+                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                NavHostFragment.findNavController(R.id.FirstFragment.this)
-//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
+        NavigationUI.setupWithNavController(navView, navController);
 
     }
 
@@ -63,19 +59,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-//    public static void closeKeyboard() {
-//        View view = getCurrentFocus();
-//        if (view != null) {
-//            InputMethodManager manager
-//                    = (InputMethodManager)
-//                    getSystemService(
-//                            Context.INPUT_METHOD_SERVICE);
-//            manager
-//                    .hideSoftInputFromWindow(
-//                            view.getWindowToken(), 0);
-//        }
-//    }
-
+    public void closeKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager manager
+                    = (InputMethodManager)
+                    getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+            manager
+                    .hideSoftInputFromWindow(
+                            view.getWindowToken(), 0);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         FirstFragment fragment1 = (FirstFragment)getSupportFragmentManager()
-                                .findFragmentById(R.id.FirstFragment);
+                                .findFragmentById(R.id.navigation_first);
 
                         switch(item) {
                             case 0:
@@ -138,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                                 FirstFragment.getCard(firstUrl);
                                 break;
                         }
-
                         selectedText.setText("Translate from en to: " + fragment1.locale);
                         dialog.dismiss();
                     }

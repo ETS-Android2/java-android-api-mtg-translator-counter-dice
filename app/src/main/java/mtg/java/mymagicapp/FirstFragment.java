@@ -128,10 +128,8 @@ public class FirstFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     private static void setUrl(String num, String set) {
@@ -157,14 +155,6 @@ public class FirstFragment extends Fragment {
         final TextView selectedText = binding.textviewFirst;
         final AutoCompleteTextView autoCompleteTextView = binding.autoCompleteEditText;
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
-
         //Setting up the adapter for AutoSuggest
         autoSuggestAdapter = new AutoSuggestAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextView.setThreshold(2);
@@ -173,13 +163,12 @@ public class FirstFragment extends Fragment {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedText.setText(autoSuggestAdapter.getObject(position) + " / " + locale);
+ //               selectedText.setText(autoSuggestAdapter.getObject(position) + " / " + locale);
                 cardname = autoSuggestAdapter.getObject(position);
                 getCard(firstUrl + cardname);
+                ((MainActivity)getActivity()).closeKeyboard();
             }
         });
-
-
 
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -233,8 +222,6 @@ public class FirstFragment extends Fragment {
         });
 
     }
-
-
 
     @Override
     public void onDestroyView() {

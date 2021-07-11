@@ -6,52 +6,108 @@
     android:layout_height="match_parent"
     tools:context=".SecondFragment">
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="128dp"
-        android:layout_height="39dp"
-        android:text="@string/previous"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="663dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:text="20"
-        android:textSize="150sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="69dp"
-        android:layout_height="186dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="272dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="#DF5454">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="66dp"
-        android:layout_height="185dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="317dp"
-        tools:layout_editor_absoluteY="270dp" />
+                <Button
+                    android:id="@+id/minus_two"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_baseline_rotate_right_24"
+                    android:rotation="-180"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:text="4"
-        android:textSize="48sp"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="189dp" />
+                <TextView
+                    android:id="@+id/counter_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:rotation="-180"
+                    android:text="20"
+                    android:textSize="150sp"
+                    android:textStyle="normal|bold"
+                    tools:text="20" />
+
+                <Button
+                    android:id="@+id/plus_two"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_baseline_rotate_left_24"
+                    android:rotation="-180"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="55dp"
+                android:layout_weight="3"
+                android:background="#302DA1">
+
+
+                <Button
+                    android:id="@+id/minus_one"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_baseline_rotate_left_24"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/counter_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="20"
+                    android:textSize="150sp"
+                    android:textStyle="normal|bold"
+                    tools:text="20" />
+
+                <Button
+                    android:id="@+id/plus_one"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_baseline_rotate_right_24"
+                    app:iconGravity="textTop"
+                    app:iconTint="@color/black" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

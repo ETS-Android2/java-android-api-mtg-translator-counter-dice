@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +16,9 @@ import mtg.java.mymagicapp.databinding.FragmentSecondBinding;
 
 public class SecondFragment extends Fragment {
 
+    private int oneCounter = 20;
+    private int twoCounter = 20;
+
     private FragmentSecondBinding binding;
 
     @Override
@@ -20,7 +26,6 @@ public class SecondFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
@@ -29,11 +34,43 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
+        final Button countPlus = binding.plusOne;
+        final Button countMinus = binding.minusOne;
+        final TextView counterNum = binding.counterOne;
+
+        final Button countPlusTwo = binding.plusTwo;
+        final Button countMinusTwo = binding.minusTwo;
+        final TextView counterNumTwo = binding.counterTwo;
+
+        countPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    oneCounter++;
+                    counterNum.setText(Integer.toString(oneCounter));
+                }
+            });
+
+        countMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                    oneCounter--;
+                    counterNum.setText(Integer.toString(oneCounter));
+            }
+        });
+
+        countPlusTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                twoCounter++;
+                counterNumTwo.setText(Integer.toString(twoCounter));
+            }
+        });
+
+        countMinusTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                twoCounter--;
+                counterNumTwo.setText(Integer.toString(twoCounter));
             }
         });
     }
