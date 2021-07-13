@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import mtg.java.mymagicapp.databinding.FragmentSecondBinding;
@@ -23,20 +25,18 @@ public class SecondFragment extends Fragment {
     private FragmentSecondBinding binding;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
 
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            oneCounter = savedInstanceState.getInt("RoneCounter",0 );
+            twoCounter = savedInstanceState.getInt("RtwoCounter",0);
+        }
+
         return binding.getRoot();
 
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("text", mData);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -121,17 +121,19 @@ public class SecondFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("RoneCounter", oneCounter);
+        outState.putInt("RtwoCounter", twoCounter);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt("counterOneSave", oneCounter);
-//        outState.putInt("counterTwoSave", twoCounter);
-//    }
+
 
 }

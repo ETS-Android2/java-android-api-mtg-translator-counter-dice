@@ -33,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -150,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 
     @Override
