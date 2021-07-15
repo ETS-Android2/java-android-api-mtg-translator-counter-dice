@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/navigation_second" />
+        <action
+            android:id="@+id/action_navigation_first_to_navigation_third"
+            app:destination="@id/navigation_third" />
     </fragment>
     <fragment
         android:id="@+id/navigation_second"
@@ -24,5 +27,21 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/navigation_first" />
+        <action
+            android:id="@+id/action_navigation_second_to_navigation_third"
+            app:destination="@id/navigation_third" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_third"
+        android:name="mtg.java.mymagicapp.ThirdFragment"
+        android:label="@string/third_fragment_label"
+        tools:layout="@layout/fragment_third">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/navigation_first" />
+        <action
+            android:id="@+id/action_navigation_third_to_navigation_second"
+            app:destination="@id/navigation_second" />
     </fragment>
 </navigation>

@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">My Magic Companion</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">MTG Card Translator</string>
+    <string name="first_fragment_label">MTG Card Translate</string>
     <string name="second_fragment_label">MTG Life Counter</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="third_fragment_label">MTG Dice Roller</string>
 
     <string name="action_settings">Language</string>
     <string name="action_newgame">Play History</string>
     <string name="action_gamestats">Search history</string>
     <string name="action_about">About</string>
 
-    <string name="hello_first_fragment">Enter MTG card name:</string>
+    <string name="hello_first_fragment">Enter english card name:</string>
 </resources>

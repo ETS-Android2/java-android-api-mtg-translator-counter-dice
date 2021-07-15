@@ -1,7 +1,5 @@
 package mtg.java.mymagicapp;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,22 +7,15 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,11 +23,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +46,6 @@ public class FirstFragment extends Fragment {
     static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
     static RequestQueue mRequestQueue;
     private AppBarConfiguration appBarConfiguration;
-
     private static FragmentFirstBinding binding;
 
     public static void getCard(String url) {
@@ -70,12 +58,9 @@ public class FirstFragment extends Fragment {
                     DoubleImageURL = image.getString("large");
                     typeline = response.getString("type_line");
                     oracletext = response.getString("oracle_text");
-
                     String collectorNumber = response.getString("collector_number");
                     String setName = response.getString("set");
-
                     setUrl(collectorNumber, setName);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -92,27 +77,23 @@ public class FirstFragment extends Fragment {
     private static void getImageRu(String url) {
         final TextView selectedText = binding.textviewFirst;
 
-        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, //GET - API-запрос для получение данных
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-
                     JSONObject image = response.getJSONObject("image_uris");
                     ImageURL = image.getString("large");
-
                     typeline = response.getString("printed_type_line");
                     oracletext = response.getString("printed_text");
-
                     selectedText.setText("Yeah, we find " + locale + " card");
                     setImage(ImageURL,typeline, oracletext);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     setImage(DoubleImageURL, typeline, oracletext);
                 }
             }
-        }, new Response.ErrorListener() { // в случае возникновеня ошибки
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
@@ -120,7 +101,7 @@ public class FirstFragment extends Fragment {
                 selectedText.setText("Sorry, no find " + locale + " card");
             }
         });
-        mRequestQueue.add(request); // добавляем запрос в очередь
+        mRequestQueue.add(request);
     }
 
     @Override
@@ -155,7 +136,6 @@ public class FirstFragment extends Fragment {
         final TextView selectedText = binding.textviewFirst;
         final AutoCompleteTextView autoCompleteTextView = binding.autoCompleteEditText;
 
-        //Setting up the adapter for AutoSuggest
         autoSuggestAdapter = new AutoSuggestAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextView.setThreshold(2);
         autoCompleteTextView.setAdapter(autoSuggestAdapter);
@@ -163,7 +143,6 @@ public class FirstFragment extends Fragment {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
- //               selectedText.setText(autoSuggestAdapter.getObject(position) + " / " + locale);
                 cardname = autoSuggestAdapter.getObject(position);
                 getCard(firstUrl + cardname);
                 ((MainActivity)getActivity()).closeKeyboard();
@@ -199,7 +178,6 @@ public class FirstFragment extends Fragment {
         ApiCall.make(getActivity(), text, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //parsing logic, please change it as per your requirement
                 List<String> stringList = new ArrayList<>();
                 try {
                     JSONObject responseObject = new JSONObject(response);
@@ -210,8 +188,6 @@ public class FirstFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //IMPORTANT: set data here and notify
-
                 autoSuggestAdapter.setData(stringList);
                 autoSuggestAdapter.notifyDataSetChanged();
             }
@@ -220,7 +196,6 @@ public class FirstFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
             }
         });
-
     }
 
     @Override

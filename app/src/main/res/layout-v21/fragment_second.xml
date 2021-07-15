@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -21,93 +22,101 @@
                 android:id="@+id/opponent_one"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
-                android:background="#DF5454">
+                android:layout_weight="7"
+                android:background="#DD1010">
 
                 <Button
-                    android:id="@+id/minus_two"
-                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:id="@+id/plus_two"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:rotation="-180"
-                    app:icon="@drawable/ic_baseline_rotate_right_24"
+                    app:icon="@drawable/ic_outline_arrow_circle_up_24"
                     app:iconGravity="textTop"
-                    app:iconTint="@color/black" />
+                    app:iconTint="@color/white" />
 
                 <TextView
                     android:id="@+id/counter_two"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:freezesText="true"
                     android:gravity="center"
                     android:rotation="-180"
-                    android:freezesText="true"
                     android:text="20"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#B54E4E"
                     android:textSize="150sp"
                     android:textStyle="normal|bold"
                     tools:text="20" />
 
                 <Button
-                    android:id="@+id/plus_two"
-                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:id="@+id/minus_two"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:rotation="-180"
-                    app:icon="@drawable/ic_baseline_rotate_left_24"
+                    app:icon="@drawable/ic_baseline_arrow_circle_down_24"
                     app:iconGravity="textTop"
-                    app:iconTint="@color/black" />
+                    app:iconTint="@color/white" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="0.7">
 
                 <Button
                     android:id="@+id/back_reset_one"
-                    style="@android:style/Widget.Material.Button.Borderless"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
                     android:rotation="-180"
-                    app:icon="@drawable/ic_baseline_image_24"
-                    app:iconGravity="textTop"
-                    app:iconTint="@color/black" />
+                    app:icon="@drawable/ic_baseline_broken_image_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="#DD1010"
+                    app:iconTintMode="src_atop" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/reset_couters"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@android:style/Widget.Material.Button.Borderless"
                     android:layout_weight="1"
-                    app:iconGravity="textTop"
-                    app:iconTint="@color/black"
-                    app:icon="@drawable/ic_baseline_autorenew_24"
-                    />
-
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@android:style/Widget.Material.Button.Borderless"
-                    android:layout_weight="1"
-                    app:iconGravity="textTop"
-                    app:iconTint="@color/black"
-                    app:icon="@drawable/ic_baseline_autorenew_24" />
+                    android:backgroundTint="@color/white"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_round_autorenew_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="#11770F"
+                    app:iconTintMode="src_atop" />
 
                 <Button
                     android:id="@+id/back_reset_two"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@android:style/Widget.Material.Button.Borderless"
                     android:layout_weight="1"
-                    app:icon="@drawable/ic_baseline_image_24"
-                    app:iconGravity="textTop"
-                    app:iconTint="@color/black"
-                    />
+                    android:backgroundTint="@color/white"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_baseline_broken_image_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="#3529C8"
+                    app:iconTintMode="src_atop" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,41 +124,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="55dp"
-                android:layout_weight="5"
-                android:background="#302DA1">
+                android:layout_weight="7"
+                android:background="#3529C8">
 
 
                 <Button
                     android:id="@+id/minus_one"
-                    style="@android:style/Widget.Material.Button.Borderless"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:icon="@drawable/ic_baseline_rotate_left_24"
+                    app:icon="@drawable/ic_baseline_arrow_circle_down_24"
                     app:iconGravity="textTop"
-                    app:iconTint="@color/black" />
+                    app:iconTint="@color/white" />
 
                 <TextView
                     android:id="@+id/counter_one"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:gravity="center"
                     android:freezesText="true"
+                    android:gravity="center"
                     android:text="20"
+                    android:textColor="#FFFFFF"
                     android:textSize="150sp"
                     android:textStyle="normal|bold"
                     tools:text="20" />
 
                 <Button
                     android:id="@+id/plus_one"
-                    style="@android:style/Widget.Material.Button.Borderless"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:icon="@drawable/ic_baseline_rotate_right_24"
+                    app:icon="@drawable/ic_outline_arrow_circle_up_24"
                     app:iconGravity="textTop"
-                    app:iconTint="@color/black" />
+                    app:iconTint="@color/white" />
 
 
             </LinearLayout>

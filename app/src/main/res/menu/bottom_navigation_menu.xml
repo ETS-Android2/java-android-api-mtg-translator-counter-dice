@@ -4,13 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="mtg.java.mymagicapp.MainActivity">
     <item
+        android:id="@+id/navigation_second"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_cached_24"
+        android:title="Counter"/>
+    <item
         android:id="@+id/navigation_first"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_translate_24"
         android:title="Translate"/>
     <item
-        android:id="@+id/navigation_second"
+        android:id="@+id/navigation_third"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_cached_24"
-        android:title="Counter"/>
+        android:icon="@drawable/ic_baseline_filter_center_focus_24"
+        android:title="Dice" />
 </menu>

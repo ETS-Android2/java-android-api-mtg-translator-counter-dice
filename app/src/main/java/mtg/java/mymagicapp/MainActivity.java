@@ -2,30 +2,23 @@ package mtg.java.mymagicapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.preference.PreferenceManager;
 import android.view.View;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import mtg.java.mymagicapp.databinding.ActivityMainBinding;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,14 +26,16 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String langlocale = preferences.getString("setLang", "en");
+        FirstFragment.locale = langlocale;
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -51,12 +46,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -76,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final TextView selectedText = findViewById(R.id.textview_first);
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 final CharSequence[] items = {"Russian", "English", "Spanish", "French", "German", "Italian", "Portuguese", "Japanese", "Korean", "Simplified Chinese", "Traditional Chinese"};
@@ -86,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
-                        FirstFragment fragment1 = (FirstFragment)getSupportFragmentManager()
-                                .findFragmentById(R.id.navigation_first);
-
                         switch(item) {
                             case 0:
                                 FirstFragment.locale = "ru";
@@ -135,26 +123,26 @@ public class MainActivity extends AppCompatActivity {
                                 FirstFragment.getCard(firstUrl);
                                 break;
                         }
-                        selectedText.setText("Translate from en to: " + fragment1.locale);
                         dialog.dismiss();
+                        saveLang();
                     }
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
                 return true;
-            case R.id.action_newgame:
-                return true;
             case R.id.action_gamestats:
-                return true;
-            case R.id.action_about:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
-
+    private void saveLang() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("setLang", FirstFragment.locale);
+        editor.apply();
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
