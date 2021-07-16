@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -131,6 +133,24 @@ public class MainActivity extends AppCompatActivity {
                 alert.show();
                 return true;
             case R.id.action_gamestats:
+                String[] objectArray = (FirstFragment.nameCardMap).keySet().toArray(new String[0]);
+                AlertDialog.Builder buildernew = new AlertDialog.Builder(this);
+                buildernew.setTitle("You search history:");
+                buildernew.setItems((CharSequence[]) objectArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch(item) {
+                            case 0:
+                                FirstFragment.locale = "ru";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                        }
+                        dialog.dismiss();
+                        saveLang();
+                    }
+                });
+                AlertDialog alertnew = buildernew.create();
+                alertnew.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

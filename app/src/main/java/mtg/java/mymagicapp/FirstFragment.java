@@ -37,7 +37,7 @@ import mtg.java.mymagicapp.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
 
-    Map<String, String> nameCardMap = new HashMap<String, String>();
+    static Map<String, String> nameCardMap = new HashMap<String, String>();
 
     private static final int TRIGGER_AUTO_COMPLETE = 100;
     private static final long AUTO_COMPLETE_DELAY = 300;
@@ -160,8 +160,6 @@ public class FirstFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cardname = autoSuggestAdapter.getObject(position);
                 nameCardMap.put(cardname, cardname);
-
-
                 getCard(firstUrl + cardname);
                 ((MainActivity)getActivity()).closeKeyboard();
             }
