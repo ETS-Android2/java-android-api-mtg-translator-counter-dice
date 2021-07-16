@@ -5,7 +5,7 @@
     <string name="second_fragment_label">MTG Life Counter</string>
     <string name="third_fragment_label">MTG Dice Roller</string>
 
-    <string name="action_settings">Language</string>
+    <string name="action_settings">Card language</string>
     <string name="action_newgame">Play History</string>
     <string name="action_gamestats">Search history</string>
     <string name="action_about">About</string>

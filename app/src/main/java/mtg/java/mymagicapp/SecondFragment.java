@@ -2,6 +2,7 @@ package mtg.java.mymagicapp;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class SecondFragment extends Fragment {
         final LinearLayout imageTwo = binding.opponentTwo;
 
         final Button resetCounters = binding.resetCouters;
+        final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         oneCounter = preferences.getInt("onePlayer", 20);
@@ -62,6 +64,7 @@ public class SecondFragment extends Fragment {
             int i = 0;
             @Override
             public void onClick(View view) {
+                click.start();
                 switch (i) {
                     case 0:imageOne.setBackgroundResource(R.drawable.dark);i++;break;
                     case 1:imageOne.setBackgroundColor(Color.parseColor("#252424"));i++;break;
@@ -83,6 +86,7 @@ public class SecondFragment extends Fragment {
             int i = 0;
             @Override
             public void onClick(View view) {
+                click.start();
                 switch (i) {
                     case 0:imageTwo.setBackgroundResource(R.drawable.dark);i++;break;
                     case 1:imageTwo.setBackgroundColor(Color.parseColor("#252424"));i++;break;
@@ -103,6 +107,7 @@ public class SecondFragment extends Fragment {
         countPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    click.start();
                     oneCounter++;
                     saveBase();
                     counterNum.setText(Integer.toString(oneCounter));
@@ -112,6 +117,7 @@ public class SecondFragment extends Fragment {
         countMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                    click.start();
                     oneCounter--;
                     saveBase();
                     counterNum.setText(Integer.toString(oneCounter));
@@ -121,6 +127,7 @@ public class SecondFragment extends Fragment {
         countPlusTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                click.start();
                 twoCounter++;
                 saveBase();
                 counterNumTwo.setText(Integer.toString(twoCounter));
@@ -130,6 +137,7 @@ public class SecondFragment extends Fragment {
         countMinusTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                click.start();
                 twoCounter--;
                 saveBase();
                 counterNumTwo.setText(Integer.toString(twoCounter));
@@ -140,6 +148,7 @@ public class SecondFragment extends Fragment {
         resetCounters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                click.start();
                 twoCounter = 20;
                 oneCounter = 20;
                 saveBase();

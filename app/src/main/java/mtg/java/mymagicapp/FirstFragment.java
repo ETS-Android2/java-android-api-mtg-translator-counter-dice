@@ -1,8 +1,10 @@
 package mtg.java.mymagicapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -27,11 +29,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mtg.java.mymagicapp.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
+
+    Map<String, String> nameCardMap = new HashMap<String, String>();
 
     private static final int TRIGGER_AUTO_COMPLETE = 100;
     private static final long AUTO_COMPLETE_DELAY = 300;
@@ -118,6 +124,15 @@ public class FirstFragment extends Fragment {
         getImageRu(secondUrl);
     }
 
+    private void saveCard() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = preferences.edit();
+        for (String s : nameCardMap.keySet()) {
+            editor.putString(s, nameCardMap.get(s));
+        }
+        editor.apply();
+    }
+
     private static void setImage(String img, String type, String oracle) {
         final TextView typelineText = binding.typeLine;
         final TextView oracleText = binding.oracleText;
@@ -144,6 +159,9 @@ public class FirstFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cardname = autoSuggestAdapter.getObject(position);
+                nameCardMap.put(cardname, cardname);
+
+
                 getCard(firstUrl + cardname);
                 ((MainActivity)getActivity()).closeKeyboard();
             }
