@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -40,6 +42,17 @@ public class ThirdFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -48,7 +61,6 @@ public class ThirdFragment extends Fragment {
         dTwoPlay = binding.twoPlayerD;
         dTwenty = binding.dTwenty;
         dTwentyNum = binding.dTwentyNum;
-        final MediaPlayer mp = MediaPlayer.create(getActivity(), R.raw.dice);
 
         r = new Random();
 
@@ -58,6 +70,7 @@ public class ThirdFragment extends Fragment {
                 int onePlayerTrow = r.nextInt(6) + 1;
                 setImageOne(onePlayerTrow);
                 Animation rotateUp = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.rotate_two);
+                final MediaPlayer mp = MediaPlayer.create(getActivity(), R.raw.dice);
                 mp.start();
                 dOnePlay.startAnimation(rotateUp);
 
@@ -75,6 +88,7 @@ public class ThirdFragment extends Fragment {
                 int twoPlayerTrow = r.nextInt(6) + 1;
                 setImageTwo(twoPlayerTrow);
                 Animation rotateDown = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.rotate_one);
+                final MediaPlayer mp = MediaPlayer.create(getActivity(), R.raw.dice);
                 mp.start();
                 dTwoPlay.startAnimation(rotateDown);
 
@@ -91,6 +105,7 @@ public class ThirdFragment extends Fragment {
             public void onClick(View v) {
                 int twentyPlayerTrow = r.nextInt(20) + 1;
                 Animation rotateRevert = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.rotate_tree);
+                final MediaPlayer mp = MediaPlayer.create(getActivity(), R.raw.dice);
                 mp.start();
                 dTwenty.startAnimation(rotateRevert);
 

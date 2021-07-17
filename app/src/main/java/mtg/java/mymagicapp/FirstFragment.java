@@ -1,6 +1,11 @@
 package mtg.java.mymagicapp;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +30,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +52,7 @@ public class FirstFragment extends Fragment {
     private AutoSuggestAdapter autoSuggestAdapter;
     private static String ImageURL;
     private static String DoubleImageURL;
-    private static String cardname;
+    public static String cardname;
     public static String locale = "ru";
     private static String oracletext;
     private static String typeline;
@@ -138,7 +145,10 @@ public class FirstFragment extends Fragment {
         final TextView oracleText = binding.oracleText;
         final ImageView imageView = binding.imageView;
 
-        Picasso.get().load(img).into(imageView);
+        final int radius = 20;
+        final int margin = 20;
+        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Picasso.get().load(img).transform(transformation).into(imageView);
         typelineText.setText(type);
         oracleText.setText(oracle);
     }
@@ -213,6 +223,8 @@ public class FirstFragment extends Fragment {
             }
         });
     }
+
+
 
     @Override
     public void onDestroyView() {

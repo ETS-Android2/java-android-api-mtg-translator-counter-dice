@@ -139,14 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 buildernew.setItems((CharSequence[]) objectArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
-                        switch(item) {
-                            case 0:
-                                FirstFragment.locale = "ru";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                        }
+                        FirstFragment.cardname = objectArray[item];
+                        FirstFragment.getCard(firstUrl);
                         dialog.dismiss();
-                        saveLang();
                     }
                 });
                 AlertDialog alertnew = buildernew.create();

@@ -1,11 +1,15 @@
 package mtg.java.mymagicapp;
 
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import mtg.java.mymagicapp.databinding.FragmentSecondBinding;
@@ -22,12 +27,33 @@ public class SecondFragment extends Fragment {
     int oneCounter = 20;
     int twoCounter = 20;
 
+    String colorone = "#252424";
+    String colortwo = "#DD1010";
+    String colortree = "#11770F";
+    String colorfour = "#B0DD32";
+    String colorfive = "#3529C8";
+
+    String saveColorOne;
+    String saveColorTwo;
+
     private FragmentSecondBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -43,17 +69,21 @@ public class SecondFragment extends Fragment {
 
         final Button backgroundOne = binding.backResetOne;
         final Button backgroundTwo = binding.backResetTwo;
-        final LinearLayout imageOne = binding.opponentOne;
-        final LinearLayout imageTwo = binding.opponentTwo;
+        final CardView imageOne = binding.cardViewOne;
+        final CardView imageTwo = binding.cardViewTwo;
 
         final Button resetCounters = binding.resetCouters;
-        final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         oneCounter = preferences.getInt("onePlayer", 20);
         twoCounter = preferences.getInt("twoPlayer", 20);
+        saveColorOne = preferences.getString("onePlayerColor", "#DD1010");
+        saveColorTwo = preferences.getString("twoPlayerColor", "#3529C8");
+
         counterNum.setText(Integer.toString(oneCounter));
         counterNumTwo.setText(Integer.toString(twoCounter));
+        imageOne.setCardBackgroundColor(Color.parseColor(saveColorOne));
+        imageTwo.setCardBackgroundColor(Color.parseColor(saveColorTwo));
 
         if (savedInstanceState != null) {
             oneCounter = savedInstanceState.getInt("RoneCounter",1);
@@ -64,21 +94,18 @@ public class SecondFragment extends Fragment {
             int i = 0;
             @Override
             public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
                 switch (i) {
-                    case 0:imageOne.setBackgroundResource(R.drawable.dark);i++;break;
-                    case 1:imageOne.setBackgroundColor(Color.parseColor("#252424"));i++;break;
-                    case 2:imageOne.setBackgroundResource(R.drawable.fire);i++;break;
-                    case 3:imageOne.setBackgroundColor(Color.parseColor("#DD1010"));i++;break;
-                    case 4:imageOne.setBackgroundResource(R.drawable.forest);i++;break;
-                    case 5:imageOne.setBackgroundColor(Color.parseColor("#11770F"));i++;break;
-                    case 6:imageOne.setBackgroundResource(R.drawable.sky);i++;break;
-                    case 7:imageOne.setBackgroundColor(Color.parseColor("#B0DD32"));i++;break;
-                    case 8:imageOne.setBackgroundResource(R.drawable.water);i++;break;
-                    case 9:imageOne.setBackgroundColor(Color.parseColor("#3529C8"));i++;break;
-                } if (i >= 10) {
+                    case 0:saveColorOne = colorone;imageOne.setCardBackgroundColor(Color.parseColor(colorone));i++;break;
+                    case 1:saveColorOne = colortwo;imageOne.setCardBackgroundColor(Color.parseColor(colortwo));i++;break;
+                    case 2:saveColorOne = colortree;imageOne.setCardBackgroundColor(Color.parseColor(colortree));i++;break;
+                    case 3:saveColorOne = colorfour;imageOne.setCardBackgroundColor(Color.parseColor(colorfour));i++;break;
+                    case 4:saveColorOne = colorfive;imageOne.setCardBackgroundColor(Color.parseColor(colorfive));i++;break;
+                } if (i >= 5) {
                     i = 0;
                 }
+                saveColor();
             }
         });
 
@@ -86,27 +113,25 @@ public class SecondFragment extends Fragment {
             int i = 0;
             @Override
             public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
                 switch (i) {
-                    case 0:imageTwo.setBackgroundResource(R.drawable.dark);i++;break;
-                    case 1:imageTwo.setBackgroundColor(Color.parseColor("#252424"));i++;break;
-                    case 2:imageTwo.setBackgroundResource(R.drawable.fire);i++;break;
-                    case 3:imageTwo.setBackgroundColor(Color.parseColor("#DD1010"));i++;break;
-                    case 4:imageTwo.setBackgroundResource(R.drawable.forest);i++;break;
-                    case 5:imageTwo.setBackgroundColor(Color.parseColor("#11770F"));i++;break;
-                    case 6:imageTwo.setBackgroundResource(R.drawable.sky);i++;break;
-                    case 7:imageTwo.setBackgroundColor(Color.parseColor("#B0DD32"));i++;break;
-                    case 8:imageTwo.setBackgroundResource(R.drawable.water);i++;break;
-                    case 9:imageTwo.setBackgroundColor(Color.parseColor("#3529C8"));i++;break;
-                } if (i >= 10) {
+                    case 0:saveColorTwo = colorone;imageTwo.setCardBackgroundColor(Color.parseColor(colorone));i++;break;
+                    case 1:saveColorTwo = colortwo;imageTwo.setCardBackgroundColor(Color.parseColor(colortwo));i++;break;
+                    case 2:saveColorTwo = colortree;imageTwo.setCardBackgroundColor(Color.parseColor(colortree));i++;break;
+                    case 3:saveColorTwo = colorfour;imageTwo.setCardBackgroundColor(Color.parseColor(colorfour));i++;break;
+                    case 4:saveColorTwo = colorfive;imageTwo.setCardBackgroundColor(Color.parseColor(colorfive));i++;break;
+                } if (i >= 5) {
                     i = 0;
                 }
+                saveColor();
             }
         });
 
         countPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                     click.start();
                     oneCounter++;
                     saveBase();
@@ -117,6 +142,7 @@ public class SecondFragment extends Fragment {
         countMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                     click.start();
                     oneCounter--;
                     saveBase();
@@ -127,6 +153,7 @@ public class SecondFragment extends Fragment {
         countPlusTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
                 twoCounter++;
                 saveBase();
@@ -137,6 +164,7 @@ public class SecondFragment extends Fragment {
         countMinusTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
                 twoCounter--;
                 saveBase();
@@ -148,6 +176,7 @@ public class SecondFragment extends Fragment {
         resetCounters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
                 twoCounter = 20;
                 oneCounter = 20;
@@ -163,6 +192,15 @@ public class SecondFragment extends Fragment {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("onePlayer", oneCounter);
         editor.putInt("twoPlayer", twoCounter);
+        editor.apply();
+    }
+
+
+    private void saveColor() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("onePlayerColor", saveColorOne);
+        editor.putString("twoPlayerColor", saveColorTwo);
         editor.apply();
     }
 
