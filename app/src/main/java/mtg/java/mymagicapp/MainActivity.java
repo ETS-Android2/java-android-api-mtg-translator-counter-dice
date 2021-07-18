@@ -3,8 +3,12 @@ package mtg.java.mymagicapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,9 +39,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String langlocale = preferences.getString("setLang", "en");
-        FirstFragment.locale = langlocale;
+        // Take instance of Action Bar
+        // using getSupportActionBar and
+        // if it is not Null
+        // then call hide function
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -69,95 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                final CharSequence[] items = {"Russian", "English", "Spanish", "French", "German", "Italian", "Portuguese", "Japanese", "Korean", "Simplified Chinese", "Traditional Chinese"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Select you language:");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        switch(item) {
-                            case 0:
-                                FirstFragment.locale = "ru";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 1:
-                                FirstFragment.locale = "en";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 2:
-                                FirstFragment.locale = "es";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 3:
-                                FirstFragment.locale = "fr";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 4:
-                                FirstFragment.locale = "de";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 5:
-                                FirstFragment.locale = "it";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 6:
-                                FirstFragment.locale = "pt";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 7:
-                                FirstFragment.locale = "ja";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 8:
-                                FirstFragment.locale = "ko";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 9:
-                                FirstFragment.locale = "zhs";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                            case 10:
-                                FirstFragment.locale = "zht";
-                                FirstFragment.getCard(firstUrl);
-                                break;
-                        }
-                        dialog.dismiss();
-                        saveLang();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-                return true;
-            case R.id.action_gamestats:
-                String[] objectArray = (FirstFragment.nameCardMap).keySet().toArray(new String[0]);
-                AlertDialog.Builder buildernew = new AlertDialog.Builder(this);
-                buildernew.setTitle("You search history:");
-                buildernew.setItems((CharSequence[]) objectArray, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        FirstFragment.cardname = objectArray[item];
-                        FirstFragment.getCard(firstUrl);
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alertnew = buildernew.create();
-                alertnew.show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
-    private void saveLang() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("setLang", FirstFragment.locale);
-        editor.apply();
-    }
 
     @Override
     public boolean onSupportNavigateUp() {

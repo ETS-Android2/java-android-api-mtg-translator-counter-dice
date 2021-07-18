@@ -1,11 +1,14 @@
 package mtg.java.mymagicapp;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,13 +17,16 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import com.android.volley.Request;
@@ -54,6 +60,7 @@ public class FirstFragment extends Fragment {
     private static String DoubleImageURL;
     public static String cardname;
     public static String locale = "ru";
+    public static String butlocale = "ru";
     private static String oracletext;
     private static String typeline;
     static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
@@ -158,8 +165,16 @@ public class FirstFragment extends Fragment {
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
 
+        final Button butOne = binding.cardLang;
+        final Button butTwo = binding.searchHistory;
         final TextView selectedText = binding.textviewFirst;
         final AutoCompleteTextView autoCompleteTextView = binding.autoCompleteEditText;
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String langlocale = preferences.getString("setLang", "en");
+        String langbutlocale = preferences.getString("setButLang", "Set language1");
+        locale = langlocale;
+        butOne.setText(langbutlocale);
 
         autoSuggestAdapter = new AutoSuggestAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextView.setThreshold(2);
@@ -198,6 +213,94 @@ public class FirstFragment extends Fragment {
                 return false;
             }
         });
+
+
+        butOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence[] items = {"Russian", "English", "Spanish", "French", "German", "Italian", "Portuguese", "Japanese", "Korean", "Simplified Chinese", "Traditional Chinese"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Select you language:");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch(item) {
+                            case 0:
+                                FirstFragment.locale = "ru";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 1:
+                                FirstFragment.locale = "en";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 2:
+                                FirstFragment.locale = "es";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 3:
+                                FirstFragment.locale = "fr";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 4:
+                                FirstFragment.locale = "de";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 5:
+                                FirstFragment.locale = "it";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 6:
+                                FirstFragment.locale = "pt";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 7:
+                                FirstFragment.locale = "ja";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 8:
+                                FirstFragment.locale = "ko";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 9:
+                                FirstFragment.locale = "zhs";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                            case 10:
+                                FirstFragment.locale = "zht";
+                                FirstFragment.getCard(firstUrl);
+                                break;
+                        }
+                        dialog.dismiss();
+                        butlocale = (String) items[item];
+                        butOne.setText(butlocale);
+                        saveLang();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        butTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] objectArray = (FirstFragment.nameCardMap).keySet().toArray(new String[0]);
+                AlertDialog.Builder buildernew = new AlertDialog.Builder(getActivity());
+                buildernew.setTitle("You search history:");
+                buildernew.setItems((CharSequence[]) objectArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        FirstFragment.cardname = objectArray[item];
+                        FirstFragment.getCard(firstUrl);
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertnew = buildernew.create();
+                alertnew.show();
+            }
+        });
+
     }
 
     private void makeApiCall(String text) {
@@ -225,6 +328,13 @@ public class FirstFragment extends Fragment {
     }
 
 
+    private void saveLang() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("setLang", locale);
+        editor.putString("setButLang", butlocale);
+        editor.apply();
+    }
 
     @Override
     public void onDestroyView() {
