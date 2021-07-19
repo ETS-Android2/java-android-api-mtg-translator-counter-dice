@@ -1,4 +1,4 @@
-package mtg.java.mymagicapp;
+package mtg.java.mymagicapp.mtgClass;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;

@@ -9,6 +9,7 @@
 
     <LinearLayout
         android:id="@+id/layout"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,6 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:gravity="center_horizontal"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -90,7 +92,7 @@
                         android:fontFamily="@font/rubik_medium"
                         android:text="Set language"
                         android:textColor="#FFFFFF"
-                        app:backgroundTint="#003ACD"
+                        app:backgroundTint="@color/water"
                         app:cornerRadius="30dp" />
 
                     <Button
@@ -103,7 +105,7 @@
                         android:fontFamily="@font/rubik_medium"
                         android:text="Search history"
                         android:textColor="#FFFFFF"
-                        app:backgroundTint="#003ACD"
+                        app:backgroundTint="@color/water"
                         app:cornerRadius="30dp" />
                 </LinearLayout>
 
@@ -146,13 +148,45 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginRight="30dp"
-                    android:layout_marginBottom="50dp"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/rubik"
                     android:gravity="center_horizontal"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/type_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/legal_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/rubik_bold"
+                        android:gravity="center_horizontal"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#FFFFFF" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipsPrograms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:layout_marginBottom="20dp"
+                        app:chipSpacing="1dp"
+                        app:chipSpacingVertical="1dp"
+                        app:singleSelection="false"></com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">My Magic Companion</string>
-    <!-- Strings used for fragments for navigation -->
+
     <string name="first_fragment_label">MTG Card Translate</string>
     <string name="second_fragment_label">MTG Life Counter</string>
     <string name="third_fragment_label">MTG Dice Roller</string>
@@ -11,6 +11,4 @@
     <string name="action_about">About</string>
 
     <string name="hello_first_fragment">Enter english card name:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

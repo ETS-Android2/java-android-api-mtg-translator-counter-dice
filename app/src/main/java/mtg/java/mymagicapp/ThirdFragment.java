@@ -33,7 +33,6 @@ public class ThirdFragment extends Fragment {
     ImageView dTwenty;
     TextView dTwentyNum;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

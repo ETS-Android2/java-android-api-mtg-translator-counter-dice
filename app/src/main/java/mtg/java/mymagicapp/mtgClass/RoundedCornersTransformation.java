@@ -1,4 +1,4 @@
-package mtg.java.mymagicapp;
+package mtg.java.mymagicapp.mtgClass;
 
 import com.squareup.picasso.Transformation;
 

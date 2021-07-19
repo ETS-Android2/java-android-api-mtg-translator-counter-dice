@@ -67,9 +67,6 @@
                     app:icon="@drawable/ic_baseline_arrow_circle_down_24"
                     app:iconGravity="textTop"
                     app:iconTint="@color/white" />
-
-
-
             </LinearLayout>
 
 
@@ -103,6 +100,19 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 app:icon="@drawable/ic_round_autorenew_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="#11770F"
+                app:iconTintMode="src_atop" />
+
+            <Button
+                android:id="@+id/life_num"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                app:icon="@drawable/ic_baseline_forward_10_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:iconTint="#11770F"

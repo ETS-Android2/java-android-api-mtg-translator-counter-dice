@@ -1,7 +1,6 @@
 package mtg.java.mymagicapp;
 
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -9,16 +8,12 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -64,6 +59,7 @@ public class SecondFragment extends Fragment {
 
         final Button countPlus = binding.plusOne;
         final Button countMinus = binding.minusOne;
+        final Button formatChange = binding.lifeNum;
         final TextView counterNum = binding.counterOne;
 
         final Button countPlusTwo = binding.plusTwo;
@@ -176,6 +172,39 @@ public class SecondFragment extends Fragment {
             }
         });
 
+        formatChange.setOnClickListener(new View.OnClickListener() {
+            int i = 0;
+            @Override
+            public void onClick(View view) {
+                final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
+                click.start();
+
+                switch (i) {
+                    case 0:
+                        oneCounter = 30;
+                        twoCounter = 30;
+                        i++;
+                        break;
+                    case 1:
+                        oneCounter = 40;
+                        twoCounter = 40;
+                        i++;
+                        break;
+                    case 2:
+                        oneCounter = 20;
+                        twoCounter = 20;
+                        i++;
+                        break;
+                } if (i >= 3) {
+                    i = 0;
+                }
+
+                saveBase();
+                counterNumTwo.setText(Integer.toString(twoCounter));
+                counterNum.setText(Integer.toString(oneCounter));
+            }
+        });
+
         resetCounters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,6 +248,4 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-
 }
