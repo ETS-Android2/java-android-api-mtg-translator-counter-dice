@@ -80,8 +80,8 @@ public class SecondFragment extends Fragment {
         final Button resetCounters = binding.resetCouters;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        oneCounter = preferences.getInt("onePlayer", 34);
-        twoCounter = preferences.getInt("twoPlayer", 34);
+        oneCounter = preferences.getInt("onePlayer", 20);
+        twoCounter = preferences.getInt("twoPlayer", 20);
         saveColorOne = preferences.getString("onePlayerColor", "#DD1010");
         saveColorTwo = preferences.getString("twoPlayerColor", "#3529C8");
 
@@ -217,8 +217,8 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
-                oneCounter = preferences.getInt("oneCounterSaver", 25);
-                twoCounter = preferences.getInt("twoCounterSaver", 25);
+                oneCounter = preferences.getInt("oneCounterSaver", 20);
+                twoCounter = preferences.getInt("twoCounterSaver", 20);
                 saveBase();
                 counterNum.setText(Integer.toString(oneCounter));
                 counterNumTwo.setText(Integer.toString(twoCounter));
