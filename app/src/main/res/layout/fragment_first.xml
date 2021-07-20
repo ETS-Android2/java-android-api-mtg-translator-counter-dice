@@ -123,44 +123,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview_first" />
 
-                <TextView
-                    android:id="@+id/type_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/rubik_bold"
-                    android:gravity="center_horizontal"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-                <TextView
-                    android:id="@+id/oracle_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/rubik"
-                    android:gravity="center_horizontal"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/type_line" />
-
                 <LinearLayout
+                    android:id="@+id/linear_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/type_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:fontFamily="@font/rubik_bold"
+                        android:gravity="center_horizontal"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                    <TextView
+                        android:id="@+id/oracle_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/type_line" />
 
                     <TextView
                         android:id="@+id/legal_status"
@@ -180,11 +181,64 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:fontFamily="@font/rubik_medium"
                         android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:textSize="12sp"
                         app:chipSpacing="1dp"
                         app:chipSpacingVertical="1dp"
                         app:singleSelection="false"></com.google.android.material.chip.ChipGroup>
+
+                    <TextView
+                        android:id="@+id/price_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/rubik_bold"
+                        android:gravity="center_horizontal"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#FFFFFF" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/usd_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/fire"
+                            android:fontFamily="@font/rubik_medium"
+                            android:gravity="center_horizontal"
+                            android:padding="5dp"
+                            android:textAlignment="center"
+                            android:textSize="14sp"
+                            app:chipBackgroundColor="@color/fire" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/usd_foil_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/fire"
+                            android:fontFamily="@font/rubik_medium"
+                            android:gravity="center_horizontal"
+                            android:padding="5dp"
+                            android:textAlignment="center"
+                            android:textSize="14sp"
+                            app:chipBackgroundColor="@color/fire" />
+                    </LinearLayout>
 
                 </LinearLayout>
 

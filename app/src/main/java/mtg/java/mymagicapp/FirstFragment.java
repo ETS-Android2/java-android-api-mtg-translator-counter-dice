@@ -1,7 +1,5 @@
 package mtg.java.mymagicapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,20 +9,18 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,7 +49,6 @@ import mtg.java.mymagicapp.mtgClass.RoundedCornersTransformation;
 
 public class FirstFragment extends Fragment {
 
-    static Map<String, String> nameCardMap = new HashMap<String, String>();
     private static final int TRIGGER_AUTO_COMPLETE = 100;
     private static final long AUTO_COMPLETE_DELAY = 300;
     private Handler handler;
@@ -65,10 +60,15 @@ public class FirstFragment extends Fragment {
     public static String butlocale = "ru";
     private static String oracletext;
     private static String typeline;
+    static String collectorNumber;
+    static String usd;
+    static String usdFoil;
+    static String setName;
     static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
     static RequestQueue mRequestQueue;
     private static FragmentFirstBinding binding;
     static HashMap<String, String> legals = new HashMap<String, String>();
+    static Map<String, String> nameCardMap = new HashMap<String, String>();
 
     public void getCard(String url) {
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
@@ -77,14 +77,17 @@ public class FirstFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     JSONObject image = response.getJSONObject("image_uris");
+                    JSONObject prices = response.getJSONObject("prices");
                     JSONObject legalObject = response.getJSONObject("legalities");
                     legals = new Gson().fromJson(legalObject.toString(), HashMap.class);
-
                     DoubleImageURL = image.getString("large");
                     typeline = response.getString("type_line");
+                    usd = prices.getString("usd");
+                    usdFoil = prices.getString("usd_foil");
                     oracletext = response.getString("oracle_text");
-                    String collectorNumber = response.getString("collector_number");
-                    String setName = response.getString("set");
+                    collectorNumber = response.getString("collector_number");
+                    setName = response.getString("set");
+
                     setUrl(collectorNumber, setName);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -148,6 +151,10 @@ public class FirstFragment extends Fragment {
         final ImageView imageView = binding.imageView;
         final ChipGroup chipsPrograms = binding.chipsPrograms;
         final TextView legalStatus = binding.legalStatus;
+        final TextView priceLabel = binding.priceLabel;
+        final Chip usdprice = binding.usdPrice;
+        final Chip usdfoil = binding.usdFoilPrice;
+        final LinearLayout content = binding.linearContent;
 
         final int radius = 20;
         final int margin = 20;
@@ -157,6 +164,21 @@ public class FirstFragment extends Fragment {
         typelineText.setText(type);
         legalStatus.setText("Legal status");
         oracleText.setText(oracle);
+        content.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        priceLabel.setText("Card price");
+
+        if (usd.equals("null")) {
+            usdprice.setText("Standart: No info");
+        } else {
+            usdprice.setText("Standart: " + usd + " USD");
+        }
+
+        if (usdFoil.equals("null")) {
+            usdprice.setText("Foil: No info");
+        } else {
+            usdfoil.setText("Foil: " + usdFoil + " USD");
+        }
 
         setLegal(legals, chipsPrograms);
     }
@@ -241,51 +263,19 @@ public class FirstFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         switch(item) {
-                            case 0:
-                                FirstFragment.locale = "ru";
-                                getCard(firstUrl);
-                                break;
-                            case 1:
-                                FirstFragment.locale = "en";
-                                getCard(firstUrl);
-                                break;
-                            case 2:
-                                FirstFragment.locale = "es";
-                                getCard(firstUrl);
-                                break;
-                            case 3:
-                                FirstFragment.locale = "fr";
-                                getCard(firstUrl);
-                                break;
-                            case 4:
-                                FirstFragment.locale = "de";
-                                getCard(firstUrl);
-                                break;
-                            case 5:
-                                FirstFragment.locale = "it";
-                                getCard(firstUrl);
-                                break;
-                            case 6:
-                                FirstFragment.locale = "pt";
-                                getCard(firstUrl);
-                                break;
-                            case 7:
-                                FirstFragment.locale = "ja";
-                                getCard(firstUrl);
-                                break;
-                            case 8:
-                                FirstFragment.locale = "ko";
-                                getCard(firstUrl);
-                                break;
-                            case 9:
-                                FirstFragment.locale = "zhs";
-                                getCard(firstUrl);
-                                break;
-                            case 10:
-                                FirstFragment.locale = "zht";
-                                getCard(firstUrl);
-                                break;
+                            case 0:locale = "ru";break;
+                            case 1:locale = "en";break;
+                            case 2:locale = "es";break;
+                            case 3:locale = "fr";break;
+                            case 4:locale = "de";break;
+                            case 5:locale = "it";break;
+                            case 6:locale = "pt";break;
+                            case 7:locale = "ja";break;
+                            case 8:locale = "ko";break;
+                            case 9:locale = "zhs";break;
+                            case 10:locale = "zht";break;
                         }
+                        getCard(firstUrl);
                         dialog.dismiss();
                         butlocale = (String) items[item];
                         butOne.setText(butlocale);
@@ -301,13 +291,13 @@ public class FirstFragment extends Fragment {
         butTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] objectArray = (FirstFragment.nameCardMap).keySet().toArray(new String[0]);
+                String[] objectArray = (nameCardMap).keySet().toArray(new String[0]);
                 AlertDialog.Builder buildernew = new AlertDialog.Builder(getActivity());
                 buildernew.setTitle("You search history:");
                 buildernew.setItems((CharSequence[]) objectArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
-                        FirstFragment.cardname = objectArray[item];
+                        cardname = objectArray[item];
                         getCard(firstUrl);
                         dialog.dismiss();
                         chipsPrograms.removeAllViews();

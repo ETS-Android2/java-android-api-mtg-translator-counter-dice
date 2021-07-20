@@ -7,15 +7,15 @@
         android:id="@+id/navigation_second"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_cached_24"
-        android:title="Counter"/>
+        android:title="Life Counter" />
     <item
         android:id="@+id/navigation_first"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_translate_24"
-        android:title="Translate"/>
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Card Search" />
     <item
         android:id="@+id/navigation_third"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_filter_center_focus_24"
-        android:title="Dice" />
+        android:title="Dice Roller" />
 </menu>
