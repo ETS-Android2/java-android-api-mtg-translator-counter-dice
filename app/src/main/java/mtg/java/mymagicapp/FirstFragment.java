@@ -318,13 +318,6 @@ public class FirstFragment extends Fragment {
             }
         });
     }
-    private static FragmentActivity myContext;
-
-
-    private void addChip(String pItem, ChipGroup pChipGroup) {
-
-    }
-
 
     private void makeApiCall(String text) {
         ApiCall.make(getActivity(), text, new Response.Listener<String>() {

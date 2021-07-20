@@ -21,8 +21,14 @@ import mtg.java.mymagicapp.databinding.FragmentSecondBinding;
 
 public class SecondFragment extends Fragment {
 
-    int oneCounter = 20;
-    int twoCounter = 20;
+    int oneCounter;
+    int twoCounter;
+
+    int oneCounterChanger;
+    int twoCounterChanger;
+
+    int oneCounterSaver;
+    int twoCounterSaver;
 
     String colorone = "#252424";
     String colortwo = "#DD1010";
@@ -74,8 +80,8 @@ public class SecondFragment extends Fragment {
         final Button resetCounters = binding.resetCouters;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        oneCounter = preferences.getInt("onePlayer", 20);
-        twoCounter = preferences.getInt("twoPlayer", 20);
+        oneCounter = preferences.getInt("onePlayer", 34);
+        twoCounter = preferences.getInt("twoPlayer", 34);
         saveColorOne = preferences.getString("onePlayerColor", "#DD1010");
         saveColorTwo = preferences.getString("twoPlayerColor", "#3529C8");
 
@@ -181,27 +187,28 @@ public class SecondFragment extends Fragment {
 
                 switch (i) {
                     case 0:
-                        oneCounter = 30;
-                        twoCounter = 30;
+                        oneCounterChanger = 30;
+                        twoCounterChanger = 30;
                         i++;
                         break;
                     case 1:
-                        oneCounter = 40;
-                        twoCounter = 40;
+                        oneCounterChanger = 40;
+                        twoCounterChanger = 40;
                         i++;
                         break;
                     case 2:
-                        oneCounter = 20;
-                        twoCounter = 20;
+                        oneCounterChanger = 20;
+                        twoCounterChanger = 20;
                         i++;
                         break;
                 } if (i >= 3) {
                     i = 0;
                 }
-
-                saveBase();
-                counterNumTwo.setText(Integer.toString(twoCounter));
-                counterNum.setText(Integer.toString(oneCounter));
+                oneCounterSaver = oneCounterChanger;
+                twoCounterSaver = twoCounterChanger;
+                saveForm();
+                counterNumTwo.setText(Integer.toString(twoCounterChanger));
+                counterNum.setText(Integer.toString(oneCounterChanger));
             }
         });
 
@@ -210,10 +217,10 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 final MediaPlayer click = MediaPlayer.create(getActivity(), R.raw.click);
                 click.start();
-                twoCounter = 20;
-                oneCounter = 20;
+                oneCounter = preferences.getInt("oneCounterSaver", 25);
+                twoCounter = preferences.getInt("twoCounterSaver", 25);
                 saveBase();
-                counterNum.setText(Integer.toString(20));
+                counterNum.setText(Integer.toString(oneCounter));
                 counterNumTwo.setText(Integer.toString(twoCounter));
             }
         });
@@ -227,6 +234,13 @@ public class SecondFragment extends Fragment {
         editor.apply();
     }
 
+    private void saveForm() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("oneCounterSaver", oneCounterSaver);
+        editor.putInt("twoCounterSaver", twoCounterSaver);
+        editor.apply();
+    }
 
     private void saveColor() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
