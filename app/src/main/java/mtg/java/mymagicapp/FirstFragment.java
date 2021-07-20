@@ -210,7 +210,7 @@ public class FirstFragment extends Fragment {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String langlocale = preferences.getString("setLang", "en");
-        String langbutlocale = preferences.getString("setButLang", "Set language1");
+        String langbutlocale = preferences.getString("setButLang", "Set language");
         locale = langlocale;
         butOne.setText(langbutlocale);
 
