@@ -1,5 +1,6 @@
 package mtg.java.mymagicapp;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -37,10 +39,10 @@ import com.squareup.picasso.Transformation;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mtg.java.mymagicapp.databinding.FragmentFirstBinding;
 import mtg.java.mymagicapp.mtgClass.ApiCall;
@@ -51,24 +53,26 @@ public class FirstFragment extends Fragment {
 
     private static final int TRIGGER_AUTO_COMPLETE = 100;
     private static final long AUTO_COMPLETE_DELAY = 300;
-    private Handler handler;
-    private AutoSuggestAdapter autoSuggestAdapter;
+    private static Handler handler;
+    private static AutoSuggestAdapter autoSuggestAdapter;
     private static String ImageURL;
     private static String DoubleImageURL;
-    public static String cardname;
-    public static String locale = "ru";
-    public static String butlocale = "ru";
+    private static String cardname;
+    private static String locale = "ru";
+    private static String butlocale = "ru";
     private static String oracletext;
     private static String typeline;
-    static String collectorNumber;
-    static String usd;
-    static String usdFoil;
-    static String setName;
-    static String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
-    static RequestQueue mRequestQueue;
-    private static FragmentFirstBinding binding;
-    static HashMap<String, String> legals = new HashMap<String, String>();
-    static Map<String, String> nameCardMap = new HashMap<String, String>();
+    private static String collectorNumber;
+    private static String usd;
+    private static String usdFoil;
+    private static String setName;
+    private static final String firstUrl = "https://api.scryfall.com/cards/named?fuzzy=";
+    private static final String secondUrl = "https://api.scryfall.com/cards/";
+    private static String cardUrl;
+    private static RequestQueue mRequestQueue;
+    private FragmentFirstBinding binding;
+    private static HashMap<String, String> legals = new HashMap<>();
+    private static final HashMap<String, String> nameCardMap = new HashMap<>();
 
     public void getCard(String url) {
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
@@ -87,8 +91,8 @@ public class FirstFragment extends Fragment {
                     oracletext = response.getString("oracle_text");
                     collectorNumber = response.getString("collector_number");
                     setName = response.getString("set");
-
-                    setUrl(collectorNumber, setName);
+                    cardUrl = secondUrl + setName + "/" + collectorNumber + "/" + locale;
+                    getImageRu(cardUrl);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -112,7 +116,6 @@ public class FirstFragment extends Fragment {
                     JSONObject image = response.getJSONObject("image_uris");
                     JSONObject legalObject = response.getJSONObject("legalities");
                     legals = new Gson().fromJson(legalObject.toString(), HashMap.class);
-
                     ImageURL = image.getString("large");
                     typeline = response.getString("printed_type_line");
                     oracletext = response.getString("printed_text");
@@ -120,6 +123,7 @@ public class FirstFragment extends Fragment {
                     setImage(ImageURL,typeline, oracletext);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    selectedText.setText("Yeah, we find " + locale + " card");
                     setImage(DoubleImageURL, typeline, oracletext);
                 }
             }
@@ -135,14 +139,9 @@ public class FirstFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
-    }
-
-    private void setUrl(String num, String set) {
-        String secondUrl = "https://api.scryfall.com/cards/" + set + "/" + num + "/" + locale;
-        getImageRu(secondUrl);
     }
 
     private void setImage(String img, String type, String oracle) {
@@ -175,7 +174,7 @@ public class FirstFragment extends Fragment {
         }
 
         if (usdFoil.equals("null")) {
-            usdprice.setText("Foil: No info");
+            usdfoil.setText("Foil: No info");
         } else {
             usdfoil.setText("Foil: " + usdFoil + " USD");
         }
@@ -183,11 +182,12 @@ public class FirstFragment extends Fragment {
         setLegal(legals, chipsPrograms);
     }
 
+    @SuppressLint("UseCompatLoadingForColorStateLists")
     private void setLegal(HashMap<String, String> legals, ChipGroup chipsPrograms) {
         for(HashMap.Entry<String, String> item : legals.entrySet()){
             if (item.getValue().equals("legal")) {
                 String formatValue = item.getKey();
-                Chip lChip = new Chip(getActivity());
+                Chip lChip = new Chip(requireActivity());
                 lChip.setText(formatValue);
                 lChip.setTextColor(getResources().getColor(R.color.white));
                 lChip.setChipBackgroundColor(getResources().getColorStateList(R.color.forest));
@@ -200,7 +200,7 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRequestQueue = Volley.newRequestQueue(getActivity());
+        mRequestQueue = Volley.newRequestQueue(requireActivity());
 
         final Button butOne = binding.cardLang;
         final Button butTwo = binding.searchHistory;
@@ -214,7 +214,7 @@ public class FirstFragment extends Fragment {
         locale = langlocale;
         butOne.setText(langbutlocale);
 
-        autoSuggestAdapter = new AutoSuggestAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line);
+        autoSuggestAdapter = new AutoSuggestAdapter(requireActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextView.setThreshold(2);
         autoCompleteTextView.setAdapter(autoSuggestAdapter);
 
@@ -225,7 +225,7 @@ public class FirstFragment extends Fragment {
                 nameCardMap.put(cardname, cardname);
                 getCard(firstUrl + cardname);
                 chipsPrograms.removeAllViews();
-                ((MainActivity)getActivity()).closeKeyboard();
+                ((MainActivity) requireActivity()).closeKeyboard();
             }
         });
 
@@ -257,7 +257,7 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 final CharSequence[] items = {"Russian", "English", "Spanish", "French", "German", "Italian", "Portuguese", "Japanese", "Korean", "Simplified Chinese", "Traditional Chinese"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
                 builder.setTitle("Select you language:");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -292,9 +292,9 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String[] objectArray = (nameCardMap).keySet().toArray(new String[0]);
-                AlertDialog.Builder buildernew = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder buildernew = new AlertDialog.Builder(requireActivity());
                 buildernew.setTitle("You search history:");
-                buildernew.setItems((CharSequence[]) objectArray, new DialogInterface.OnClickListener() {
+                buildernew.setItems(objectArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         cardname = objectArray[item];
@@ -341,14 +341,14 @@ public class FirstFragment extends Fragment {
         editor.apply();
     }
 
-    private void saveCard() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        SharedPreferences.Editor editor = preferences.edit();
-        for (String s : nameCardMap.keySet()) {
-            editor.putString(s, nameCardMap.get(s));
-        }
-        editor.apply();
-    }
+//    private void saveCard() {
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        SharedPreferences.Editor editor = preferences.edit();
+//        for (String s : nameCardMap.keySet()) {
+//            editor.putString(s, nameCardMap.get(s));
+//        }
+//        editor.apply();
+//    }
 
     @Override
     public void onDestroyView() {

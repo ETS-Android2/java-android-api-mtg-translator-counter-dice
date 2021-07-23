@@ -42,7 +42,7 @@ public class SecondFragment extends Fragment {
     private FragmentSecondBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -55,7 +55,7 @@ public class SecondFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
     }
@@ -209,6 +209,12 @@ public class SecondFragment extends Fragment {
                 saveForm();
                 counterNumTwo.setText(Integer.toString(twoCounterChanger));
                 counterNum.setText(Integer.toString(oneCounterChanger));
+
+                oneCounter = preferences.getInt("oneCounterSaver", 20);
+                twoCounter = preferences.getInt("twoCounterSaver", 20);
+                saveBase();
+                counterNum.setText(Integer.toString(oneCounter));
+                counterNumTwo.setText(Integer.toString(twoCounter));
             }
         });
 
@@ -251,7 +257,7 @@ public class SecondFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("RoneCounter", oneCounter);
         outState.putInt("RtwoCounter", twoCounter);
