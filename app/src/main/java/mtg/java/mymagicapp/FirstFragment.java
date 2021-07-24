@@ -3,6 +3,8 @@ package mtg.java.mymagicapp;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -205,8 +207,11 @@ public class FirstFragment extends Fragment {
         final Button butOne = binding.cardLang;
         final Button butTwo = binding.searchHistory;
 
+
         final AutoCompleteTextView autoCompleteTextView = binding.autoCompleteEditText;
         final ChipGroup chipsPrograms = binding.chipsPrograms;
+
+    //  autoCompleteTextView.setDropDownBackgroundResource(R.color.darker);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String langlocale = preferences.getString("setLang", "en");

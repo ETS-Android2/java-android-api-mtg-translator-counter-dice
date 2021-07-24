@@ -32,6 +32,7 @@
                     android:fontFamily="@font/rubik_bold"
                     android:gravity="center_horizontal"
                     android:text="@string/hello_first_fragment"
+                    android:textColor="#A18383"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
@@ -47,6 +48,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginRight="30dp"
+                    android:textColorHint="#FFFDFD"
                     app:boxBackgroundColor="#121212"
                     app:boxCornerRadiusBottomEnd="30dp"
                     app:boxCornerRadiusBottomStart="30dp"
@@ -56,11 +58,16 @@
                     app:boxStrokeWidth="0dp"
                     app:endIconDrawable="@drawable/ic_baseline_search_24"
                     app:endIconMode="custom"
+                    app:endIconTint="#A18383"
                     app:helperTextEnabled="false"
+                    app:helperTextTextColor="#EDE5E5"
                     app:hintEnabled="false"
+                    app:hintTextColor="#E6DBDB"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:placeholderTextColor="#E1D6D6"
+                    app:prefixTextColor="#E1D6D6">
 
                     <AutoCompleteTextView
                         android:id="@+id/auto_complete_edit_text"
@@ -69,7 +76,9 @@
                         android:layout_marginBottom="25dp"
                         android:fontFamily="@font/rubik_medium"
                         android:hint="Search..."
-                        android:padding="20dp" />
+                        android:padding="20dp"
+                        android:textColor="#A18383"
+                        android:textColorHint="#A18383" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,6 +101,7 @@
                         android:fontFamily="@font/rubik_medium"
                         android:text="Set language"
                         android:textColor="#FFFFFF"
+                        android:textSize="12sp"
                         app:backgroundTint="@color/water"
                         app:cornerRadius="30dp" />
 
@@ -105,6 +115,7 @@
                         android:fontFamily="@font/rubik_medium"
                         android:text="Search history"
                         android:textColor="#FFFFFF"
+                        android:textSize="12sp"
                         app:backgroundTint="@color/water"
                         app:cornerRadius="30dp" />
                 </LinearLayout>
@@ -142,6 +153,7 @@
                         android:fontFamily="@font/rubik_bold"
                         android:gravity="center_horizontal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#A18383"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -158,6 +170,7 @@
                         android:layout_marginBottom="20dp"
                         android:fontFamily="@font/rubik"
                         android:gravity="center_horizontal"
+                        android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +186,7 @@
                         android:fontFamily="@font/rubik_bold"
                         android:gravity="center_horizontal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#A18383" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipsPrograms"
@@ -182,8 +195,9 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="20dp"
-                        android:fontFamily="@font/rubik_medium"
-                        android:textSize="12sp"
+                        android:fontFamily="@font/rubik_bold"
+                        android:padding="5dp"
+                        android:textSize="16sp"
                         app:chipSpacing="1dp"
                         app:chipSpacingVertical="1dp"
                         app:singleSelection="false"></com.google.android.material.chip.ChipGroup>
@@ -198,7 +212,7 @@
                         android:fontFamily="@font/rubik_bold"
                         android:gravity="center_horizontal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#A18383" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -218,10 +232,11 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@color/fire"
-                            android:fontFamily="@font/rubik_medium"
+                            android:fontFamily="@font/rubik_bold"
                             android:gravity="center_horizontal"
                             android:padding="5dp"
                             android:textAlignment="center"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp"
                             app:chipBackgroundColor="@color/fire" />
 
@@ -232,10 +247,11 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@color/fire"
-                            android:fontFamily="@font/rubik_medium"
+                            android:fontFamily="@font/rubik_bold"
                             android:gravity="center_horizontal"
                             android:padding="5dp"
                             android:textAlignment="center"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp"
                             app:chipBackgroundColor="@color/fire" />
                     </LinearLayout>
