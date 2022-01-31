@@ -2,6 +2,8 @@
 
 Java Android App: MTG Card translator, Life Counter, Dice roller
 
+https://play.google.com/store/apps/details?id=mtg.java.mymagicapp
+
 My Magic Companion application consists of three modules:
 
 - MTG Card translator
